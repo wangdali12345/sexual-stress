@@ -240,25 +240,58 @@ class SexualRepressionTest {
     }
 
     init() {
+        console.log('开始初始化精品出版平台...');
         this.setupEventListeners();
         this.showWelcomeSection();
         this.calculateDimensionCounts();
+        console.log('初始化完成！');
     }
 
     setupEventListeners() {
+        console.log('设置事件监听器...');
+        
         // Hero section buttons
         const startBtn = document.getElementById('startTest');
         const startFromWelcomeBtn = document.getElementById('startTestFromWelcome');
         
-        if (startBtn) startBtn.addEventListener('click', () => this.startTest());
-        if (startFromWelcomeBtn) startFromWelcomeBtn.addEventListener('click', () => this.startTest());
+        console.log('查找测试按钮...');
+        console.log('startBtn:', startBtn);
+        console.log('startFromWelcomeBtn:', startFromWelcomeBtn);
+        
+        if (startBtn) {
+            startBtn.addEventListener('click', (e) => {
+                console.log('主导航测试按钮被点击');
+                e.preventDefault();
+                this.startTest();
+            });
+            console.log('主导航测试按钮监听器已设置');
+        } else {
+            console.error('找不到主导航测试按钮 #startTest');
+        }
+        
+        if (startFromWelcomeBtn) {
+            startFromWelcomeBtn.addEventListener('click', (e) => {
+                console.log('欢迎页面测试按钮被点击');
+                e.preventDefault();
+                this.startTest();
+            });
+            console.log('欢迎页面测试按钮监听器已设置');
+        } else {
+            console.error('找不到欢迎页面测试按钮 #startTestFromWelcome');
+        }
         
         // Navigation buttons
-        document.getElementById('prevBtn').addEventListener('click', () => this.previousQuestion());
-        document.getElementById('nextBtn').addEventListener('click', () => this.nextQuestion());
-        document.getElementById('submitBtn').addEventListener('click', () => this.submitTest());
-        document.getElementById('restartBtn').addEventListener('click', () => this.restartTest());
-        document.getElementById('shareBtn').addEventListener('click', () => this.shareResults());
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const restartBtn = document.getElementById('restartBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        
+        if (prevBtn) prevBtn.addEventListener('click', () => this.previousQuestion());
+        if (nextBtn) nextBtn.addEventListener('click', () => this.nextQuestion());
+        if (submitBtn) submitBtn.addEventListener('click', () => this.submitTest());
+        if (restartBtn) restartBtn.addEventListener('click', () => this.restartTest());
+        if (shareBtn) shareBtn.addEventListener('click', () => this.shareResults());
         
         // Add smooth scroll behavior
         this.setupSmoothScroll();
@@ -854,5 +887,10 @@ document.head.appendChild(style);
 
 // 初始化测试
 document.addEventListener('DOMContentLoaded', () => {
-    new SexualRepressionTest();
+    try {
+        new SexualRepressionTest();
+        console.log('精品出版平台初始化成功');
+    } catch (error) {
+        console.error('初始化失败:', error);
+    }
 });
