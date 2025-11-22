@@ -26,7 +26,7 @@
             <h1 class="hero-title">精品出版</h1>
             <p class="hero-subtitle">专业的心理健康评估与分析平台</p>
             <div class="hero-cta">
-                <button id="startTest" class="apple-button primary">开始评估</button>
+                <button onclick="startTest()" class="apple-button primary">开始评估</button>
                 <button class="apple-button secondary">了解更多</button>
             </div>
         </header>
@@ -34,7 +34,7 @@
         <section id="welcomeSection" class="content-section">
             <div class="apple-card">
                 <h2 class="section-title">心理健康评估</h2>
-                <p class="section-description">本评估系统基于现代心理学理论设计，通过科学的方法帮助您深入了解个人心理状态。评估过程包含多个维度的专业测试，预计需要5-8分钟完成。</p>
+                <p class="section-description">本评估系统基于现代心理学理论设计，通过科学的方法帮助您深入了解个人心理状态。</p>
                 
                 <div class="feature-grid">
                     <div class="feature-item">
@@ -54,26 +54,8 @@
                     </div>
                 </div>
 
-                <div class="info-section">
-                    <h3>评估说明</h3>
-                    <div class="info-list">
-                        <div class="info-item">
-                            <span class="info-number">01</span>
-                            <span class="info-text">请根据您的真实感受回答每个问题</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-number">02</span>
-                            <span class="info-text">没有对错之分，选择最符合您情况的选项</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-number">03</span>
-                            <span class="info-text">评估结果仅供参考，如需专业建议请咨询专家</span>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="cta-section">
-                    <button id="startTestFromWelcome" class="apple-button primary large">开始评估</button>
+                    <button onclick="startTest()" class="apple-button primary large">开始评估</button>
                 </div>
             </div>
         </section>
@@ -82,7 +64,7 @@
             <div class="progress-section">
                 <div class="progress-container">
                     <div class="progress-bar">
-                        <div id="progress" class="progress-fill"></div>
+                        <div id="progress" class="progress-fill" style="width: 5%"></div>
                     </div>
                     <span id="progressText" class="progress-text">1 / 20</span>
                 </div>
@@ -90,19 +72,19 @@
 
             <div class="apple-card">
                 <div class="question-container">
-                    <h2 id="questionText" class="question-title"></h2>
+                    <h2 id="questionText" class="question-title">题目加载中...</h2>
                     <div id="optionsContainer" class="options-container"></div>
                 </div>
                 <div class="navigation-container">
-                    <button id="prevBtn" class="apple-button secondary" disabled>
+                    <button onclick="previousQuestion()" id="prevBtn" class="apple-button secondary" disabled>
                         <span class="button-icon">←</span>
                         上一题
                     </button>
-                    <button id="nextBtn" class="apple-button primary" disabled>
+                    <button onclick="nextQuestion()" id="nextBtn" class="apple-button primary" disabled>
                         下一题
                         <span class="button-icon">→</span>
                     </button>
-                    <button id="submitBtn" class="apple-button primary hidden">完成评估</button>
+                    <button onclick="submitTest()" id="submitBtn" class="apple-button primary hidden">完成评估</button>
                 </div>
             </div>
         </section>
@@ -114,32 +96,24 @@
                 <div class="result-summary">
                     <div class="score-display">
                         <div class="score-circle">
-                            <span id="scoreText" class="score-number"></span>
+                            <span id="scoreText" class="score-number">25</span>
                         </div>
-                        <div class="score-level" id="scoreLevel"></div>
+                        <div class="score-level" id="scoreLevel">轻度压抑</div>
                     </div>
                 </div>
 
                 <div id="resultDetails" class="result-details">
                     <div class="analysis-section">
                         <h3 class="subsection-title">详细分析</h3>
-                        <div id="analysisContent" class="analysis-content"></div>
-                    </div>
-
-                    <div class="dimensions-section">
-                        <h3 class="subsection-title">各个维度得分</h3>
-                        <div id="dimensionsContent" class="dimensions-content"></div>
-                    </div>
-
-                    <div class="suggestions-section">
-                        <h3 class="subsection-title">建议与指导</h3>
-                        <div id="suggestionsContent" class="suggestions-content"></div>
+                        <div id="analysisContent" class="analysis-content">
+                            <p>您的评估已完成，感谢您的参与！</p>
+                        </div>
                     </div>
                 </div>
 
                 <div class="action-container">
-                    <button id="restartBtn" class="apple-button secondary">重新评估</button>
-                    <button id="shareBtn" class="apple-button primary">分享报告</button>
+                    <button onclick="restartTest()" class="apple-button secondary">重新评估</button>
+                    <button onclick="shareResults()" class="apple-button primary">分享报告</button>
                 </div>
             </div>
         </section>
@@ -170,476 +144,388 @@
     </footer>
 
     <script>
-        // 完整的测试系统
-        class FullTest {
-            constructor() {
-                this.questions = [
-                    {
-                        id: 1,
-                        text: "当看到亲密关系的画面时，您会感到：",
-                        options: [
-                            { text: "非常舒适自然", value: 1 },
-                            { text: "略微有些不自在", value: 2 },
-                            { text: "明显感到不适", value: 3 },
-                            { text: "极度不自在或回避", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 2,
-                        text: "您如何看待自己的性需求和欲望？",
-                        options: [
-                            { text: "完全接纳并正常看待", value: 1 },
-                            { text: "基本接纳但有时会犹豫", value: 2 },
-                            { text: "经常感到羞耻或矛盾", value: 3 },
-                            { text: "强烈否认或压抑", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 3,
-                        text: "在与伴侣讨论性话题时，您的态度是：",
-                        options: [
-                            { text: "开放、自然、直接", value: 1 },
-                            { text: "能够讨论但有些紧张", value: 2 },
-                            { text: "非常困难且回避", value: 3 },
-                            { text: "完全无法提及", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 4,
-                        text: "您如何处理性冲动或性幻想？",
-                        options: [
-                            { text: "健康地接纳和表达", value: 1 },
-                            { text: "私下接受但外在压抑", value: 2 },
-                            { text: "感到内疚并试图控制", value: 3 },
-                            { text: "强烈抑制和否认", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 5,
-                        text: "您对性知识的了解程度如何？",
-                        options: [
-                            { text: "积极主动学习和了解", value: 1 },
-                            { text: "有一定了解但不够深入", value: 2 },
-                            { text: "知识有限且不愿深究", value: 3 },
-                            { text: "刻意回避相关信息", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 6,
-                        text: "在亲密关系中，您更倾向于：",
-                        options: [
-                            { text: "积极表达情感和需求", value: 1 },
-                            { text: "能够表达但有限度", value: 2 },
-                            { text: "经常压抑真实感受", value: 3 },
-                            { text: "几乎完全不表达", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 7,
-                        text: "您如何看待社会对性道德的看法？",
-                        options: [
-                            { text: "理性看待并形成自己观点", value: 1 },
-                            { text: "受一定影响但保持独立", value: 2 },
-                            { text: "很大程度上被社会观点束缚", value: 3 },
-                            { text: "完全遵循传统道德观念", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 8,
-                        text: "当出现性需求时，您的第一反应是：",
-                        options: [
-                            { text: "正常看待并寻找合适方式满足", value: 1 },
-                            { text: "承认需求但有所顾虑", value: 2 },
-                            { text: "感到冲突和矛盾", value: 3 },
-                            { text: "立即否认或压抑", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 9,
-                        text: "您对自己的身体形象和性吸引力：",
-                        options: [
-                            { text: "自信并积极看待", value: 1 },
-                            { text: "基本接受但有时不自信", value: 2 },
-                            { text: "经常感到自卑或不满意", value: 3 },
-                            { text: "极度否定自己的魅力", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 10,
-                        text: "在性教育方面，您认为：",
-                        options: [
-                            { text: "应该公开、科学地讨论", value: 1 },
-                            { text: "有必要但应该适度", value: 2 },
-                            { text: "应该保持低调和保守", value: 3 },
-                            { text: "应该尽量避免或禁止", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 11,
-                        text: "您如何处理与性相关的梦境或幻想？",
-                        options: [
-                            { text: "正常看待并反思其意义", value: 1 },
-                            { text: "有些困惑但能够接受", value: 2 },
-                            { text: "感到羞耻或不安", value: 3 },
-                            { text: "极力否认和忘记", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 12,
-                        text: "在面对他人的性话题讨论时，您会：",
-                        options: [
-                            { text: "自然参与并分享观点", value: 1 },
-                            { text: "倾听但很少发表意见", value: 2 },
-                            { text: "感到不适并尽量回避", value: 3 },
-                            { text: "立刻转换话题或离开", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 13,
-                        text: "您对自己的性历史或经历的态度是：",
-                        options: [
-                            { text: "坦然接受并从中学习", value: 1 },
-                            { text: "基本接受但有遗憾", value: 2 },
-                            { text: "感到后悔或羞耻", value: 3 },
-                            { text: "极力否认或不愿面对", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 14,
-                        text: "在选择伴侣时，性和谐对您的重要性：",
-                        options: [
-                            { text: "非常重要且优先考虑", value: 1 },
-                            { text: "重要但不是首要因素", value: 2 },
-                            { text: "不太重要或可以妥协", value: 3 },
-                            { text: "几乎不重要或刻意忽略", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 15,
-                        text: "您如何平衡性需求和其他生活需求？",
-                        options: [
-                            { text: "能够健康地平衡各个方面", value: 1 },
-                            { text: "基本平衡但偶尔失衡", value: 2 },
-                            { text: "经常感到冲突和矛盾", value: 3 },
-                            { text: "严重忽视或压抑性需求", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 16,
-                        text: "您对媒体中与性相关内容的看法：",
-                        options: [
-                            { text: "理性看待并选择性接受", value: 1 },
-                            { text: "有所保留但不过度排斥", value: 2 },
-                            { text: "大多持批评态度", value: 3 },
-                            { text: "强烈反对和回避", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 17,
-                        text: "在亲密关系中，您表达爱意的方式：",
-                        options: [
-                            { text: "包括言语、身体等多方面", value: 1 },
-                            { text: "以非性方式为主", value: 2 },
-                            { text: "避免身体亲密接触", value: 3 },
-                            { text: "几乎不表达亲密", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 18,
-                        text: "您如何看待自己的性权利和边界：",
-                        options: [
-                            { text: "明确了解并坚决维护", value: 1 },
-                            { text: "基本了解但不够坚定", value: 2 },
-                            { text: "模糊不清或经常妥协", value: 3 },
-                            { text: "完全忽视或任人摆布", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 19,
-                        text: "在面对性挫折或性困难时，您会：",
-                        options: [
-                            { text: "积极寻求解决方案", value: 1 },
-                            { text: "尝试解决但容易放弃", value: 2 },
-                            { text: "感到羞耻并独自承受", value: 3 },
-                            { text: "完全回避或否认问题", value: 4 }
-                        ]
-                    },
-                    {
-                        id: 20,
-                        text: "总体而言，您认为性在您生活中的地位是：",
-                        options: [
-                            { text: "重要且健康的组成部分", value: 1 },
-                            { text: "有一定位置但不是核心", value: 2 },
-                            { text: "边缘化或不太重要", value: 3 },
-                            { text: "希望从生活中完全排除", value: 4 }
-                        ]
-                    }
-                ];
-
-                this.currentQuestion = 0;
-                this.answers = [];
-                this.init();
+        // 题目数据
+        const questions = [
+            {
+                id: 1,
+                text: "当看到亲密关系的画面时，您会感到：",
+                options: [
+                    { text: "非常舒适自然", value: 1 },
+                    { text: "略微有些不自在", value: 2 },
+                    { text: "明显感到不适", value: 3 },
+                    { text: "极度不自在或回避", value: 4 }
+                ]
+            },
+            {
+                id: 2,
+                text: "您如何看待自己的性需求和欲望？",
+                options: [
+                    { text: "完全接纳并正常看待", value: 1 },
+                    { text: "基本接纳但有时会犹豫", value: 2 },
+                    { text: "经常感到羞耻或矛盾", value: 3 },
+                    { text: "强烈否认或压抑", value: 4 }
+                ]
+            },
+            {
+                id: 3,
+                text: "在与伴侣讨论性话题时，您的态度是：",
+                options: [
+                    { text: "开放、自然、直接", value: 1 },
+                    { text: "能够讨论但有些紧张", value: 2 },
+                    { text: "非常困难且回避", value: 3 },
+                    { text: "完全无法提及", value: 4 }
+                ]
+            },
+            {
+                id: 4,
+                text: "您如何处理性冲动或性幻想？",
+                options: [
+                    { text: "健康地接纳和表达", value: 1 },
+                    { text: "私下接受但外在压抑", value: 2 },
+                    { text: "感到内疚并试图控制", value: 3 },
+                    { text: "强烈抑制和否认", value: 4 }
+                ]
+            },
+            {
+                id: 5,
+                text: "您对性知识的了解程度如何？",
+                options: [
+                    { text: "积极主动学习和了解", value: 1 },
+                    { text: "有一定了解但不够深入", value: 2 },
+                    { text: "知识有限且不愿深究", value: 3 },
+                    { text: "刻意回避相关信息", value: 4 }
+                ]
+            },
+            {
+                id: 6,
+                text: "在亲密关系中，您更倾向于：",
+                options: [
+                    { text: "积极表达情感和需求", value: 1 },
+                    { text: "能够表达但有限度", value: 2 },
+                    { text: "经常压抑真实感受", value: 3 },
+                    { text: "几乎完全不表达", value: 4 }
+                ]
+            },
+            {
+                id: 7,
+                text: "您如何看待社会对性道德的看法？",
+                options: [
+                    { text: "理性看待并形成自己观点", value: 1 },
+                    { text: "受一定影响但保持独立", value: 2 },
+                    { text: "很大程度上被社会观点束缚", value: 3 },
+                    { text: "完全遵循传统道德观念", value: 4 }
+                ]
+            },
+            {
+                id: 8,
+                text: "当出现性需求时，您的第一反应是：",
+                options: [
+                    { text: "正常看待并寻找合适方式满足", value: 1 },
+                    { text: "承认需求但有所顾虑", value: 2 },
+                    { text: "感到冲突和矛盾", value: 3 },
+                    { text: "立即否认或压抑", value: 4 }
+                ]
+            },
+            {
+                id: 9,
+                text: "您对自己的身体形象和性吸引力：",
+                options: [
+                    { text: "自信并积极看待", value: 1 },
+                    { text: "基本接受但有时不自信", value: 2 },
+                    { text: "经常感到自卑或不满意", value: 3 },
+                    { text: "极度否定自己的魅力", value: 4 }
+                ]
+            },
+            {
+                id: 10,
+                text: "在性教育方面，您认为：",
+                options: [
+                    { text: "应该公开、科学地讨论", value: 1 },
+                    { text: "有必要但应该适度", value: 2 },
+                    { text: "应该保持低调和保守", value: 3 },
+                    { text: "应该尽量避免或禁止", value: 4 }
+                ]
+            },
+            {
+                id: 11,
+                text: "您如何处理与性相关的梦境或幻想？",
+                options: [
+                    { text: "正常看待并反思其意义", value: 1 },
+                    { text: "有些困惑但能够接受", value: 2 },
+                    { text: "感到羞耻或不安", value: 3 },
+                    { text: "极力否认和忘记", value: 4 }
+                ]
+            },
+            {
+                id: 12,
+                text: "在面对他人的性话题讨论时，您会：",
+                options: [
+                    { text: "自然参与并分享观点", value: 1 },
+                    { text: "倾听但很少发表意见", value: 2 },
+                    { text: "感到不适并尽量回避", value: 3 },
+                    { text: "立刻转换话题或离开", value: 4 }
+                ]
+            },
+            {
+                id: 13,
+                text: "您对自己的性历史或经历的态度是：",
+                options: [
+                    { text: "坦然接受并从中学习", value: 1 },
+                    { text: "基本接受但有遗憾", value: 2 },
+                    { text: "感到后悔或羞耻", value: 3 },
+                    { text: "极力否认或不愿面对", value: 4 }
+                ]
+            },
+            {
+                id: 14,
+                text: "在选择伴侣时，性和谐对您的重要性：",
+                options: [
+                    { text: "非常重要且优先考虑", value: 1 },
+                    { text: "重要但不是首要因素", value: 2 },
+                    { text: "不太重要或可以妥协", value: 3 },
+                    { text: "几乎不重要或刻意忽略", value: 4 }
+                ]
+            },
+            {
+                id: 15,
+                text: "您如何平衡性需求和其他生活需求？",
+                options: [
+                    { text: "能够健康地平衡各个方面", value: 1 },
+                    { text: "基本平衡但偶尔失衡", value: 2 },
+                    { text: "经常感到冲突和矛盾", value: 3 },
+                    { text: "严重忽视或压抑性需求", value: 4 }
+                ]
+            },
+            {
+                id: 16,
+                text: "您对媒体中与性相关内容的看法：",
+                options: [
+                    { text: "理性看待并选择性接受", value: 1 },
+                    { text: "有所保留但不过度排斥", value: 2 },
+                    { text: "大多持批评态度", value: 3 },
+                    { text: "强烈反对和回避", value: 4 }
+                ]
+            },
+            {
+                id: 17,
+                text: "在亲密关系中，您表达爱意的方式：",
+                options: [
+                    { text: "包括言语、身体等多方面", value: 1 },
+                    { text: "以非性方式为主", value: 2 },
+                    { text: "避免身体亲密接触", value: 3 },
+                    { text: "几乎不表达亲密", value: 4 }
+                ]
+            },
+            {
+                id: 18,
+                text: "您如何看待自己的性权利和边界：",
+                options: [
+                    { text: "明确了解并坚决维护", value: 1 },
+                    { text: "基本了解但不够坚定", value: 2 },
+                    { text: "模糊不清或经常妥协", value: 3 },
+                    { text: "完全忽视或任人摆布", value: 4 }
+                ]
+            },
+            {
+                id: 19,
+                text: "在面对性挫折或性困难时，您会：",
+                options: [
+                    { text: "积极寻求解决方案", value: 1 },
+                    { text: "尝试解决但容易放弃", value: 2 },
+                    { text: "感到羞耻并独自承受", value: 3 },
+                    { text: "完全回避或否认问题", value: 4 }
+                ]
+            },
+            {
+                id: 20,
+                text: "总体而言，您认为性在您生活中的地位是：",
+                options: [
+                    { text: "重要且健康的组成部分", value: 1 },
+                    { text: "有一定位置但不是核心", value: 2 },
+                    { text: "边缘化或不太重要", value: 3 },
+                    { text: "希望从生活中完全排除", value: 4 }
+                ]
             }
+        ];
 
-            init() {
-                console.log('初始化完整测试系统...');
-                this.setupEventListeners();
-                console.log('初始化完成！');
-            }
+        // 全局变量
+        let currentQuestion = 0;
+        let answers = [];
 
-            setupEventListeners() {
-                // 开始测试按钮
-                const startBtn = document.getElementById('startTest');
-                const startFromWelcomeBtn = document.getElementById('startTestFromWelcome');
+        // 开始测试
+        function startTest() {
+            console.log('开始测试');
+            document.getElementById('welcomeSection').classList.add('hidden');
+            document.getElementById('testSection').classList.remove('hidden');
+            
+            currentQuestion = 0;
+            answers = [];
+            showQuestion();
+            
+            document.getElementById('testSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 显示题目
+        function showQuestion() {
+            console.log(`显示第 ${currentQuestion + 1} 题，共 ${questions.length} 题`);
+            
+            const question = questions[currentQuestion];
+            const questionText = document.getElementById('questionText');
+            const optionsContainer = document.getElementById('optionsContainer');
+            
+            // 显示题目
+            questionText.textContent = question.text;
+            
+            // 显示选项
+            optionsContainer.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.innerHTML = `
+                    <input type="radio" id="option${index}" name="answer" value="${option.value}">
+                    <label for="option${index}">${option.text}</label>
+                `;
                 
-                if (startBtn) {
-                    startBtn.addEventListener('click', () => this.startTest());
-                    console.log('主导航开始按钮已绑定');
-                }
-
-                if (startFromWelcomeBtn) {
-                    startFromWelcomeBtn.addEventListener('click', () => this.startTest());
-                    console.log('欢迎页面开始按钮已绑定');
-                }
-
-                // 导航按钮
-                const prevBtn = document.getElementById('prevBtn');
-                const nextBtn = document.getElementById('nextBtn');
-                const submitBtn = document.getElementById('submitBtn');
-                const restartBtn = document.getElementById('restartBtn');
-                const shareBtn = document.getElementById('shareBtn');
-
-                if (prevBtn) prevBtn.addEventListener('click', () => this.previousQuestion());
-                if (nextBtn) nextBtn.addEventListener('click', () => this.nextQuestion());
-                if (submitBtn) submitBtn.addEventListener('click', () => this.submitTest());
-                if (restartBtn) restartBtn.addEventListener('click', () => this.restartTest());
-                if (shareBtn) shareBtn.addEventListener('click', () => this.shareResults());
-
-                // 移动菜单
-                const mobileToggle = document.getElementById('mobileMenuToggle');
-                const navMenu = document.getElementById('navMenu');
+                optionDiv.onclick = function() {
+                    selectOption(this, option.value);
+                };
                 
-                if (mobileToggle && navMenu) {
-                    mobileToggle.addEventListener('click', () => {
-                        navMenu.classList.toggle('active');
-                        mobileToggle.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
-                    });
-                }
-            }
-
-            startTest() {
-                console.log('开始测试');
-                const welcomeSection = document.getElementById('welcomeSection');
-                const testSection = document.getElementById('testSection');
-                
-                if (welcomeSection && testSection) {
-                    welcomeSection.classList.add('hidden');
-                    testSection.classList.remove('hidden');
-                    testSection.scrollIntoView({ behavior: 'smooth' });
-                    
-                    this.currentQuestion = 0;
-                    this.answers = [];
-                    this.showQuestion();
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            // 如果有之前的答案，恢复选择
+            if (answers[currentQuestion]) {
+                const selectedOption = document.querySelector(`input[value="${answers[currentQuestion]}"]`);
+                if (selectedOption) {
+                    selectedOption.checked = true;
+                    selectedOption.closest('.option').classList.add('selected');
                 }
             }
+            
+            updateProgress();
+            updateButtons();
+        }
 
-            showQuestion() {
-                console.log(`显示第 ${this.currentQuestion + 1} 题`);
-                const question = this.questions[this.currentQuestion];
-                const questionText = document.getElementById('questionText');
-                const optionsContainer = document.getElementById('optionsContainer');
-                
-                // 显示题目
-                questionText.textContent = question.text;
-                
-                // 显示选项
-                optionsContainer.innerHTML = '';
-                question.options.forEach((option, index) => {
-                    const optionElement = document.createElement('div');
-                    optionElement.className = 'option';
-                    optionElement.innerHTML = `
-                        <input type="radio" id="option${index}" name="answer" value="${option.value}">
-                        <label for="option${index}">${option.text}</label>
-                    `;
-                    
-                    optionElement.addEventListener('click', () => {
-                        document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
-                        optionElement.classList.add('selected');
-                        optionElement.querySelector('input').checked = true;
-                        this.answers[this.currentQuestion] = option.value;
-                        this.updateNavigationButtons();
-                    });
-                    
-                    optionsContainer.appendChild(optionElement);
-                });
-                
-                // 如果有之前的答案，恢复选择
-                if (this.answers[this.currentQuestion]) {
-                    const selectedOption = document.querySelector(`input[value="${this.answers[this.currentQuestion]}"]`);
-                    if (selectedOption) {
-                        selectedOption.checked = true;
-                        selectedOption.closest('.option').classList.add('selected');
-                    }
-                }
-                
-                this.updateProgress();
-                this.updateNavigationButtons();
-            }
+        // 选择选项
+        function selectOption(element, value) {
+            console.log('选择了选项:', value);
+            
+            // 清除之前的选择
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // 设置当前选择
+            element.classList.add('selected');
+            element.querySelector('input').checked = true;
+            
+            // 保存答案
+            answers[currentQuestion] = value;
+            
+            // 更新按钮状态
+            updateButtons();
+        }
 
-            updateProgress() {
-                const progress = ((this.currentQuestion + 1) / this.questions.length) * 100;
-                document.getElementById('progress').style.width = `${progress}%`;
-                document.getElementById('progressText').textContent = `${this.currentQuestion + 1} / ${this.questions.length}`;
-            }
+        // 更新进度
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `${currentQuestion + 1} / ${questions.length}`;
+        }
 
-            updateNavigationButtons() {
-                const prevBtn = document.getElementById('prevBtn');
-                const nextBtn = document.getElementById('nextBtn');
-                const submitBtn = document.getElementById('submitBtn');
-                
-                prevBtn.disabled = this.currentQuestion === 0;
-                
-                if (this.currentQuestion === this.questions.length - 1) {
-                    nextBtn.classList.add('hidden');
-                    submitBtn.classList.remove('hidden');
-                    submitBtn.disabled = !this.answers[this.currentQuestion];
-                } else {
-                    nextBtn.classList.remove('hidden');
-                    submitBtn.classList.add('hidden');
-                    nextBtn.disabled = !this.answers[this.currentQuestion];
-                }
-            }
-
-            previousQuestion() {
-                if (this.currentQuestion > 0) {
-                    this.currentQuestion--;
-                    this.showQuestion();
-                }
-            }
-
-            nextQuestion() {
-                if (this.currentQuestion < this.questions.length - 1 && this.answers[this.currentQuestion]) {
-                    this.currentQuestion++;
-                    this.showQuestion();
-                }
-            }
-
-            submitTest() {
-                console.log('提交测试');
-                this.calculateResults();
-                this.showResults();
-            }
-
-            calculateResults() {
-                let totalScore = this.answers.reduce((sum, answer) => sum + answer, 0);
-                this.repressionIndex = ((totalScore - 20) / 60) * 100;
-            }
-
-            showResults() {
-                const testSection = document.getElementById('testSection');
-                const resultSection = document.getElementById('resultSection');
-                
-                if (testSection && resultSection) {
-                    testSection.classList.add('hidden');
-                    resultSection.classList.remove('hidden');
-                    resultSection.scrollIntoView({ behavior: 'smooth' });
-                    
-                    this.displayScore();
-                    this.displayAnalysis();
-                }
-            }
-
-            displayScore() {
-                const scoreText = document.getElementById('scoreText');
-                const scoreLevel = document.getElementById('scoreLevel');
-                
-                scoreText.textContent = Math.round(this.repressionIndex);
-                
-                let level, levelText, color;
-                if (this.repressionIndex < 25) {
-                    level = '低压抑';
-                    levelText = '您对性持健康开放的态度';
-                    color = '#4CAF50';
-                } else if (this.repressionIndex < 50) {
-                    level = '轻度压抑';
-                    levelText = '存在一定的压抑倾向，建议适当调整';
-                    color = '#FF9800';
-                } else if (this.repressionIndex < 75) {
-                    level = '中度压抑';
-                    levelText = '压抑程度较高，建议寻求专业指导';
-                    color = '#FF5722';
-                } else {
-                    level = '重度压抑';
-                    levelText = '压抑程度很高，强烈建议寻求专业帮助';
-                    color = '#F44336';
-                }
-                
-                scoreLevel.textContent = level;
-                scoreLevel.style.color = color;
-            }
-
-            displayAnalysis() {
-                const analysisContent = document.getElementById('analysisContent');
-                
-                let analysisText = '';
-                if (this.repressionIndex < 25) {
-                    analysisText = `
-                        <p>您的性压抑指数较低，这表明您对性相关话题和经历持相对健康、开放的态度。</p>
-                        <p>您能够：</p>
-                        <ul>
-                            <li>自然地接受和表达自己的性需求</li>
-                            <li>健康地看待性在生活中的作用</li>
-                            <li>与他人进行开放的性相关沟通</li>
-                        </ul>
-                    `;
-                } else if (this.repressionIndex < 50) {
-                    analysisText = `
-                        <p>您的性压抑指数处于轻度范围，显示您在某些方面可能存在一定的压抑倾向。</p>
-                        <p>可能的表现包括：</p>
-                        <ul>
-                            <li>在特定情境下对性话题感到不适</li>
-                            <li>偶尔压抑或质疑自己的性需求</li>
-                            <li>在亲密关系中表达不够充分</li>
-                        </ul>
-                    `;
-                } else {
-                    analysisText = `
-                        <p>您的性压抑指数处于中度或重度范围，表明您在性心理方面存在明显的压抑问题。</p>
-                        <p>建议寻求专业心理咨询师的帮助，以更好地理解和处理这些压抑情绪。</p>
-                    `;
-                }
-                
-                analysisContent.innerHTML = analysisText;
-            }
-
-            restartTest() {
-                location.reload();
-            }
-
-            shareResults() {
-                const shareText = `我刚刚完成了心理健康评估，压抑指数是${Math.round(this.repressionIndex)}分。精品出版平台很专业！`;
-                if (navigator.share) {
-                    navigator.share({
-                        title: '精品出版 - 心理健康评估',
-                        text: shareText
-                    });
-                } else {
-                    navigator.clipboard.writeText(shareText);
-                    alert('结果已复制到剪贴板！');
-                }
+        // 更新按钮状态
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // 上一题按钮
+            prevBtn.disabled = currentQuestion === 0;
+            
+            // 下一题/完成按钮
+            const hasAnswer = answers[currentQuestion] !== undefined;
+            const isLastQuestion = currentQuestion === questions.length - 1;
+            
+            if (isLastQuestion) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+                submitBtn.disabled = !hasAnswer;
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+                nextBtn.disabled = !hasAnswer;
             }
         }
 
-        // 页面加载完成后初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM加载完成，开始初始化完整测试系统');
-            try {
-                new FullTest();
-                console.log('完整测试系统启动成功！');
-            } catch (error) {
-                console.error('初始化失败:', error);
-                alert('网站初始化失败，请刷新页面重试');
+        // 上一题
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
             }
+        }
+
+        // 下一题
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+            }
+        }
+
+        // 提交测试
+        function submitTest() {
+            console.log('提交测试，所有答案:', answers);
+            
+            // 计算分数
+            const totalScore = answers.reduce((sum, answer) => sum + answer, 0);
+            const repressionIndex = ((totalScore - 20) / 60) * 100;
+            
+            // 显示结果
+            document.getElementById('testSection').classList.add('hidden');
+            document.getElementById('resultSection').classList.remove('hidden');
+            
+            document.getElementById('scoreText').textContent = Math.round(repressionIndex);
+            
+            let level = '轻度压抑';
+            if (repressionIndex < 25) level = '低压抑';
+            else if (repressionIndex < 50) level = '轻度压抑';
+            else if (repressionIndex < 75) level = '中度压抑';
+            else level = '重度压抑';
+            
+            document.getElementById('scoreLevel').textContent = level;
+            document.getElementById('analysisContent').innerHTML = `
+                <p>您的测试已完成，总分：${totalScore}分，压抑指数：${Math.round(repressionIndex)}分</p>
+                <p>评估等级：${level}</p>
+                <p>感谢您的参与！</p>
+            `;
+            
+            document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 重新测试
+        function restartTest() {
+            location.reload();
+        }
+
+        // 分享结果
+        function shareResults() {
+            alert('感谢您使用精品出版平台！');
+        }
+
+        // 移动菜单切换
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileToggle = document.getElementById('mobileMenuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (mobileToggle && navMenu) {
+                mobileToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                    mobileToggle.textContent = navMenu.classList.contains('active') ? '✕' : '☰';
+                });
+            }
+            
+            console.log('页面加载完成，系统就绪！');
         });
     </script>
 </body>
