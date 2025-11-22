@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>精品出版</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1 class="logo-text">精品出版</h1>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#" class="nav-link">测试</a>
+                <a href="#" class="nav-link">分析</a>
+                <a href="#" class="nav-link">报告</a>
+                <a href="#" class="nav-link">关于</a>
+            </div>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <header class="hero-section">
+            <h1 class="hero-title">精品出版</h1>
+            <p class="hero-subtitle">专业的心理健康评估与分析平台</p>
+            <div class="hero-cta">
+                <button id="startTest" class="apple-button primary">开始评估</button>
+                <button class="apple-button secondary">了解更多</button>
+            </div>
+        </header>
+
+        <section id="welcomeSection" class="content-section">
+            <div class="apple-card">
+                <h2 class="section-title">心理健康评估</h2>
+                <p class="section-description">本评估系统基于现代心理学理论设计，通过科学的方法帮助您深入了解个人心理状态。评估过程包含多个维度的专业测试，预计需要5-8分钟完成。</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🧠</div>
+                        <h3>科学设计</h3>
+                        <p>基于权威心理学理论</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📊</div>
+                        <h3>多维分析</h3>
+                        <p>全面的评估维度覆盖</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔒</div>
+                        <h3>隐私保护</h3>
+                        <p>数据本地处理，安全可靠</p>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>评估说明</h3>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <span class="info-number">01</span>
+                            <span class="info-text">请根据您的真实感受回答每个问题</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-number">02</span>
+                            <span class="info-text">没有对错之分，选择最符合您情况的选项</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-number">03</span>
+                            <span class="info-text">评估结果仅供参考，如需专业建议请咨询专家</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cta-section">
+                    <button id="startTestFromWelcome" class="apple-button primary large">开始评估</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="testSection" class="content-section hidden">
+            <div class="progress-section">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progress" class="progress-fill"></div>
+                    </div>
+                    <span id="progressText" class="progress-text">1 / 20</span>
+                </div>
+            </div>
+
+            <div class="apple-card">
+                <div class="question-container">
+                    <h2 id="questionText" class="question-title"></h2>
+                    <div id="optionsContainer" class="options-container"></div>
+                </div>
+                <div class="navigation-container">
+                    <button id="prevBtn" class="apple-button secondary" disabled>
+                        <span class="button-icon">←</span>
+                        上一题
+                    </button>
+                    <button id="nextBtn" class="apple-button primary" disabled>
+                        下一题
+                        <span class="button-icon">→</span>
+                    </button>
+                    <button id="submitBtn" class="apple-button primary hidden">完成评估</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="resultSection" class="content-section hidden">
+            <div class="apple-card">
+                <h2 class="section-title">评估报告</h2>
+                
+                <div class="result-summary">
+                    <div class="score-display">
+                        <div class="score-circle">
+                            <span id="scoreText" class="score-number"></span>
+                        </div>
+                        <div class="score-level" id="scoreLevel"></div>
+                    </div>
+                </div>
+
+                <div id="resultDetails" class="result-details">
+                    <div class="analysis-section">
+                        <h3 class="subsection-title">详细分析</h3>
+                        <div id="analysisContent" class="analysis-content"></div>
+                    </div>
+
+                    <div class="dimensions-section">
+                        <h3 class="subsection-title">各个维度得分</h3>
+                        <div id="dimensionsContent" class="dimensions-content"></div>
+                    </div>
+
+                    <div class="suggestions-section">
+                        <h3 class="subsection-title">建议与指导</h3>
+                        <div id="suggestionsContent" class="suggestions-content"></div>
+                    </div>
+                </div>
+
+                <div class="action-container">
+                    <button id="restartBtn" class="apple-button secondary">重新评估</button>
+                    <button id="shareBtn" class="apple-button primary">分享报告</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="apple-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>产品</h4>
+                <ul>
+                    <li><a href="#">心理健康评估</a></li>
+                    <li><a href="#">个性化分析</a></li>
+                    <li><a href="#">专业报告</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>服务</h4>
+                <ul>
+                    <li><a href="#">使用指南</a></li>
+                    <li><a href="#">技术支持</a></li>
+                    <li><a href="#">常见问题</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>关于</h4>
+                <ul>
+                    <li><a href="#">团队介绍</a></li>
+                    <li><a href="#">联系我们</a></li>
+                    <li><a href="#">隐私政策</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 精品出版. 保留所有权利.</p>
+        </div>
+    </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
